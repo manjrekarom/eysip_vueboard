@@ -1,0 +1,97 @@
+<template>
+    <div id="app">
+    <div>
+        
+        <DatasourceWrapper 
+        :enableModal="true"
+        :enableContainer="true"
+        :dataSourceArray="datasourcesArray"
+        @DATASOURCE_ADDED="dataSourceAdded"
+        @DATASOURCE_EDITED="dataSourceEdited"
+        @DATASOURCE_DELETED="dataSourceDeleted"
+        />
+
+        <WidgetWrapper
+        :enableModal="true"
+        :enableContainer="true"
+        :widgetArray="widgetArray"
+        :gridItemArray="gridItemArray"
+        @WIDGET_ADDED="widgetAdded"
+        @WIDGET_EDITED="widgetEdited"
+        @WIDGET_DELETED="widgetDeleted"
+        />
+
+    </div>
+    </div>
+</template>
+
+
+<script>
+
+import DatasourceWrapper from './components/wrappers/DatasourceWrapper';
+import WidgetWrapper from './components/wrappers/WidgetWrapper';
+import {Datasource} from "./assets/js/Datasource";
+import {Widget} from "./assets/js/Widget";
+import {GridItem} from "./assets/js/GridItem";
+
+
+export default {
+
+    name: 'App',
+
+    components: {
+
+        DatasourceWrapper,
+        WidgetWrapper,
+
+    },
+
+    data() {
+    return {
+        
+        datasourcesArray: [new Datasource('id', 'Test', 'JSON', 'https://localhost:44311/API/?handler=OtherData', ['date', 'views'])],
+
+        widgetArray: [[new Widget('date', 'views', [5, 6, 9, 12], [4, 11, 15, 12], 'line')]],
+
+        gridItemArray: [new GridItem(0, 0, 6, 6, "0")]
+
+    }
+    },
+
+    methods: {
+    dataSourceAdded(dataSource) {
+        console.log("Datasource added" , dataSource);
+    },
+    dataSourceDeleted(dataSource) {
+        console.log("Datasource deleted" , dataSource);
+    },
+    dataSourceEdited(dataSource) {
+        console.log("Datasource edited" , dataSource);
+    },
+
+    widgetAdded(widget) {
+        console.log("widget added" , widget);
+    },
+    widgetDeleted(widget) {
+        console.log("widget deleted" , widget);
+    },
+    widgetEdited(widget) {
+        console.log("widget edited" , widget);
+    },
+    }
+    
+}
+
+</script>
+
+
+<style lang="less" scoped>
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: left;
+    color: #2c3e50;
+    margin: 0px 50px;
+}
+</style>
